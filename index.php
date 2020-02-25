@@ -1,7 +1,8 @@
 <?php
 
-    include_once 'function.php';
+include_once 'function.php';
 
+$res = $mysqli->query("SELECT * FROM marka ");
 
 ?>
 <!DOCTYPE html>
@@ -15,14 +16,17 @@
 </head>
 
 <body>
-    <select name="" id="marka">
+    <select name="" onchange="" id="marka">
         <?php
-        
-        for ($i=0; $i < ; $i++) { 
-            # code...
-        }
-        ?>
-        <option value="volvo">Volvo</option> <!-- itt tőltöm majd fel dinamikusan az adatbázisban található értékekkel-->
+
+        while ($row = $res->fetch_array()) : ?>
+
+            <option value="<?= $row['ID'] ?>" id="aktualis"><?= $row['Nev'] ?></option> <!-- itt tőltöm majd fel dinamikusan az adatbázisban található értékekkel-->
+
+        <?php endwhile; ?>
+    </select>
+    <select name="" id="model">
+        <option value=""></option>
     </select>
 </body>
 
