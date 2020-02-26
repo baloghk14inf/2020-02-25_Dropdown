@@ -8,6 +8,7 @@ function myFunction() {
 $('#marka').change(function () {
 
     
+    //window.alert("Valami");
 
     var url = "index.php";
     $.ajax({
@@ -16,14 +17,14 @@ $('#marka').change(function () {
         url: "function.php",
         data: $(this).serialize(), // itt alakul ár jsonná, küldött adat
         success: function post() {
-
-            var aktualis = $("#aktualis").val(); //az adoztt kiválasztott elem id-jét adom át
+                                                                //itt volt a probléma nem adtam ét id alapján a kiválasztottat
+            var aktualis = $("#marka option:selected").val(); //az adoztt kiválasztott elem id-jét adom át
             
 
-            $.post('function.php', { postszam: aktualis },
+            $.post('function.php', { postszam: aktualis }, //ide  minenképpen belép
                 function (data) {
-                   // $('#result').html(data);// itt kapom majd vissza az értéket
-                   alert(data);
+                    $('#result').html(data);// itt kapom majd vissza az értéket
+                   console.log(data);
                 });
         }
 

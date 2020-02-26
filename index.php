@@ -1,17 +1,5 @@
 <?php
-session_start();
-
-$config['db_host'] = 'localhost';
-$config['db_user'] = 'root';
-$config['db_pass'] = '';
-$config['db_name'] = 'dropdown';
-
-
-$mysqli = new mysqli($config['db_host'],$config['db_user'],$config['db_pass'],$config['db_name']);
-
-$_SESSION['mysqli']=$mysqli;
-
-$res = $mysqli->query("SELECT * FROM marka ");
+    include_once "mysql.php";
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +16,7 @@ $res = $mysqli->query("SELECT * FROM marka ");
 </head>
 
 <body>
-    <select name="" id="aktualis"  id="marka">
+    <select name=""   id="marka">
         <?php
 
         while ($row = $res->fetch_array()) : ?>
@@ -39,12 +27,12 @@ $res = $mysqli->query("SELECT * FROM marka ");
     </select>
     <select name="" id="model">
 
-    <?php  /*while ($result = $result->fetch_array()) :*/ ?>
+    <?php  while ($result = $result->fetch_array()) : ?><!-- ide majd kell egy if -->
 
-    <option value="<?= $row['ID'] ?>" id="aktualis"><?= $row['Nev'] ?></option>
-    <?php 
-//endwhile;
- ?>
+    <option value="" id="aktualis"><?= $row['Nev'] ?></option>
+        <?php 
+    endwhile;
+    ?>
     </select>
 
 <div id="result"></div>
