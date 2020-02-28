@@ -4,15 +4,29 @@ include_once "mysql.php";
 
 //itt lessz a probléma
 
+echo '<script language="javascript">';
+echo 'alert("message successfully sent")';
+echo '</script>';
+
+if (isset($_POST['id']) && !empty($_POST['id'])) {
 
 
-if (isset($_POST['postszam']) && !empty($_POST['postszam'])) {
     
-    $id = $_POST['postszam'];
+    $id = $_POST['id'];
 
     //echo $id;
     //var_dump($id);
-    $result = listazas($mysqli, $id);
+    //$result = listazas($mysqli, $id);
+
+
+    $sql = "SELECT * FROM `modell` WHERE `marka_ID` ='$id'";
+    $result = mysqli_query($conn, $sql);
+    $rows = array();
+    while ($r = mysqli_fetch_assoc($result)) {
+        $rows[] = $r;
+    }
+    //Send the array back as a JSON object
+    echo json_encode($rows);
     
     
 }
