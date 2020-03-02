@@ -16,26 +16,34 @@
 </head>
 
 <body>
-    <select name=""   id="marka">
-        <?php
 
-        while ($row = $res->fetch_array()) : ?>
+<div class="container" >
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                    <label for="marka">Márka</label>
+                        <select name="" class="form-control"   id="marka">
+                            <option value="<?=0?>" >Kiválaszt</option>
+                            <?php
 
-            <option value="<?= $row['ID'] ?>"><?= $row['Nev'] ?></option> <!-- itt tőltöm majd fel dinamikusan az adatbázisban található értékekkel-->
+                            while ($row = $res->fetch_array()) : ?>
 
-        <?php endwhile; ?>
-    </select>
-    <select name="" id="model">
+                                <option value="<?= $row['ID'] ?>"><?= $row['Nev'] ?></option> <!-- itt tőltöm majd fel dinamikusan az adatbázisban található értékekkel-->
 
-    <?php  while ($result = $result->fetch_array()) : ?><!-- ide majd kell egy if -->
-
-    <option value="" id="aktualis"><?= $row['Nev'] ?></option>
-        <?php 
-    endwhile;
-    ?>
-    </select>
-
-<div id="result"></div>
+                            <?php endwhile; ?>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="modell">Modell</label>
+                        <select name="" class="form-control"   id="modell">
+                            <option value="0" ></option>
+                        </select>
+                </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>

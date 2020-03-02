@@ -2,33 +2,32 @@
 
 include_once "mysql.php";
 
-//itt lessz a probléma
 
-echo '<script language="javascript">';
-echo 'alert("message successfully sent")';
-echo '</script>';
 
 if (isset($_POST['id']) && !empty($_POST['id'])) {
 
-
-    
+   // echo "valami";
     $id = $_POST['id'];
 
-    //echo $id;
-    //var_dump($id);
-    //$result = listazas($mysqli, $id);
 
 
-    $sql = "SELECT * FROM `modell` WHERE `marka_ID` ='$id'";
-    $result = mysqli_query($conn, $sql);
-    $rows = array();
-    while ($r = mysqli_fetch_assoc($result)) {
-        $rows[] = $r;
-    }
-    //Send the array back as a JSON object
-    echo json_encode($rows);
+        $result = listazas($mysqli, $id);
+
+        $tomb = array();
     
+        while( $row = mysqli_fetch_array($result) ){
+            $marka_id = $row['marka_ID'];
+            $nev = $row['Nev'];
+        
+            $tomb[] = array("marka_ID" => $marka_id, "Nev" => $nev);
+        }
+        
     
+        echo json_encode($tomb);
+
+}
+else {
+    echo 0;
 }
     
     
@@ -41,11 +40,11 @@ function listazas($connection,$id)
         mysqli_stmt_bind_param($statment, "i",$id); //bind-hozzákötés "i"-integer 
         mysqli_stmt_execute($statment);
         $result = mysqli_stmt_get_result($statment); //eredménymegszerzés
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-       // return $result;
+     // return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
     } else {
-        //logMessage("ERROR", 'Query error: ' . mysqli_error($connection));
-        //errorPage();
+        logMessage("ERROR", 'Query error: ' . mysqli_error($connection));
+        errorPage();
     }  
 }
 

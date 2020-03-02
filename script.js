@@ -7,31 +7,39 @@ function myFunction() {
 
 $('#marka').change(function (e) {
 
-    alert("valami");
-    
-    //window.alert("Valami");
 
-    var id = $("#marka option:selected").val();
+    var mid = $("#marka option:selected").val();
 
-    var data = { "id" : id };
-    var url = "index.php";
     $.ajax({
         
         type: "POST", //üzenet típusa
         url: "function.php",
-        data: $(data).serialize(),
+        data: { id : mid},
         dataType: "json", 
         success: function (result) {
-                                                                //itt volt a probléma nem adtam ét id alapján a kiválasztottat
-            //var aktualis = $("#marka option:selected").val(); //az adoztt kiválasztott elem id-jét adom át
-            console.log(result);
-            //document.getElementById('charactername').innerHTML = result[0].username;
+                                        //itt volt a probléma nem adtam át id alapján a kiválasztottat
+              var len = result.length;
 
-          /*  $.post('function.php', { postszam: aktualis }, //ide  minenképpen belép
-                function (data) {
-                    $('#result').html(data);// itt kapom majd vissza az értéket
-                   console.log(data);
-                });*/
+              if (len != 0)
+                {
+                $("#modell").removeAttr('disabled');
+                $("#modell").empty();
+
+                for( var i = 0; i<len; i++){
+                  var id = result[i]['marka_ID'];
+                   var nev = result[i]['Nev'];
+                                                
+                   //alert(id);
+                    $("#modell").append("<option value='"+id+"'>"+nev+"</option>");
+                }
+
+              }
+              else {
+                $("#modell").attr('disabled', 'disabled');
+                $("#modell").html("<option value='0'>Nincs találat</option>");
+
+              }
+
 
         }
 
